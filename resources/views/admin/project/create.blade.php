@@ -14,7 +14,7 @@
             </div>
         @endif
 
-        <form class="mt-5" action="{{ route('admin.projects.store') }}" method="POST">
+        <form class="mt-5" action="{{ route('admin.projects.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-3 has-validation">
                 
@@ -32,6 +32,12 @@
                 <label for="description" class="form-label">Description</label>
                 <textarea class="form-control" id="description" name="description" rows="3">{{ old('description') }}</textarea>
             </div>
+
+            <div class="mb-3">
+                <label for="image" class="form-label">img</label>
+                <input type="file" class="form-control" id="image" name="image">
+            </div>
+
             <button class="btn btn-success" type="submit">Save</button>
 
 

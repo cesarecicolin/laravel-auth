@@ -7,6 +7,7 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ProjectController extends Controller
@@ -41,11 +42,16 @@ class ProjectController extends Controller
     public function store(StoreProjectRequest $request)
     {
 
-       
+        
         $form_data = $request->validated();
         $project = new Project();
         $project->fill($form_data);
+        if ($request->hasFile('image')){
+            $path = Storage::put('project_images', $request->image);
+            $project->image = $path;
+        }
         $project->slug =Str::slug($project->title, '-');
+        
         $project->save();
 
         return redirect()->route('admin.projects.show', ['project' => $project->slug]);
