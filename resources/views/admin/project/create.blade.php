@@ -4,28 +4,35 @@
     <div class="container mt-5">
 
         @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{$error}}</li>
-                @endforeach
-                
-            </ul>
-        </div>
-    @endif
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
 
-        <form class="mt-5" action="{{route('admin.projects.store')}}" method="POST">
+                </ul>
+            </div>
+        @endif
+
+        <form class="mt-5" action="{{ route('admin.projects.store') }}" method="POST">
             @csrf
-            <div class="mb-3">
+            <div class="mb-3 has-validation">
+                
                 <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="title" name="title" value="{{old('title')}}">
-              </div>
+                <input type="text"
+                    class="form-control @error('title') is-invalid @enderror"id="title" name="title" value="{{ old('title') }}">
 
-              <div class="mb-3">
+                @error('title')
+                    <div class="alert alert-danger mt-3">{{ $message }}</div>
+                @enderror
+
+            </div>
+
+            <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
-                <textarea class="form-control" id="description" name="description" rows="3">{{old('description')}}</textarea>
-              </div>
-              <button  class="btn btn-success" type="submit">Save</button>
+                <textarea class="form-control" id="description" name="description" rows="3">{{ old('description') }}</textarea>
+            </div>
+            <button class="btn btn-success" type="submit">Save</button>
 
 
         </form>
