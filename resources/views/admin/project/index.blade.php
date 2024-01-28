@@ -21,6 +21,14 @@
                         <td>{{$project->created_at}}</td>
                         <td><a class="btn btn-primary" href="{{route('admin.projects.show',['project'=>$project->slug ])}}">dettagli</a>
                         <a class="btn btn-danger" href="{{route('admin.projects.edit', ['project' =>$project->slug])}}">modifica</a>
+
+                            <form class="d-inline-block" action="{{ route('admin.projects.destroy' , ['project'=> $project->slug])}}"
+                                method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger" type="submit">eliminare</button>
+                            </form>
+
                         </td>
                 @endforeach
 
